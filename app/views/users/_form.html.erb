@@ -1,1 +1,40 @@
 <h1>Form....</h1>
+
+<%= form_with model: @user do |form| %>
+  <div>
+    <%= form.label :first_name %><br>
+    <%= form.text_field :first_name %>
+  </div>
+
+  <div>
+    <%= form.label :last_name %><br>
+    <%= form.text_field :last_name %>
+  </div>
+
+  <div>
+    <%= form.label 'Gender' %><br>
+    <%= form.radio_button  :gender, 'male' %>
+    <%= form.label :gender, 'Male'%>
+    <%= form.radio_button  :gender, 'female' %>
+    <%= form.label :gender, 'Female'%>
+  </div>
+
+  <div>
+    <%= form.label :date_of_birth %><br>
+    <%= form.date_field :date_of_birth %>
+  </div>
+
+  <div>
+    <%= form.label :address %><br>
+    <%= form.text_area :address %>
+  </div>
+
+  <div>
+    <%= form.label :avatar %>
+    <%= form.file_field :avatar %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

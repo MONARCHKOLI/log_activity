@@ -5,5 +5,7 @@ Rails.application.routes.draw do
   root "homes#index"
   get '/register', to: "users#new"
   resources :homes
-  # resources :users
+  resources :users
+  resources :qrcodes, only: [:show]
+  get 'generate_qr_code', to: 'users#generate_qr_code'
 end
