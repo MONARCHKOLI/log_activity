@@ -18,7 +18,7 @@
     <tr>
       <th scope="row">Date Of Birth</th>
       <td scope="row"><%= @user.date_of_birth %></td>
-      <td align='center'><%= button_to 'Edit', edit_user_path(@user), class:'btn btn-primary'%></td>
+      <td align='center'><%= link_to 'Edit', edit_user_path(@user), class:'btn btn-primary'%></td>
     </tr>
     <tr>
       <th scope="row">Address</th>
@@ -28,12 +28,11 @@
     <tr>
       <th scope="row">Registered On</th>
       <td scope="row"><%= @user.created_at.to_date %></td>
-      <td align='center'><%= button_to 'Download Gate Pass', edit_user_path(@user), class:'btn btn-info' %></td>
+      <td align='center'><%= button_to 'Download Gate Pass', user_path(@user), class:'btn btn-info' %></td>
     </tr>
   </tbody>
 </table>
 
 <h2>QR Code</h2>
-  <%= image_tag qrcode_path(@user.qr_code.html_safe, format: :svg) %>
-
+  <%= raw @qr_code %>
 </div>
