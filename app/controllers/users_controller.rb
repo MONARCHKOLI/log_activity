@@ -2,6 +2,33 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @qr_code = QrCodeGenerator.generate(@user)
+    @qr_code_svg = @qr_code
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        pdf = Prawn::Document.new
+        if @user.avatar.attached?
+          image_path = ActiveStorage::Blob.service.send(:path_for, @user.avatar.key)
+          pdf.image(image_path, width: 100, height: 100)
+        else
+          pdf.text "No Avatar Available"
+        end
+        svg_document = Nokogiri::XML::Document.parse(@qr_code_svg)
+        svg_fragment = svg_document.root
+        pdf.svg svg_fragment.to_s, at: [50, 400], width: 200, height: 200
+        pdf.text "User Details"
+        pdf.text "Unique Identity: #{@user.unique_identity}"
+        pdf.text "Name: #{@user.first_name} #{@user.last_name}"
+        pdf.text "Date Of Birth: #{@user.date_of_birth}"
+        pdf.text "Gender: #{@user.gender}"
+        pdf.text "Age: #{@user.age}"
+        pdf.text "Registered at: #{@user.created_at.to_date}"
+        
+        
+        send_data pdf.render, filename: "#{@user.unique_identity}_details.pdf", type: "application/pdf", disposition: "attachment"
+      end
+    end
   end
 
   def new
@@ -50,7 +77,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :gender, :qrcode, :date_of_birth, :address, :avatar)
+    params.require(:user).permit(:first_name, :last_name, :gender, :qrcode, :date_of_birth, :address, :avatar, :email)
   end
 
   def unique_identity_create

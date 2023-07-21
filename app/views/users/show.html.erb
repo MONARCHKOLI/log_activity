@@ -5,11 +5,15 @@
     <tr>
       <th scope="row">Name</th>
       <td scope="row"><%= @user.first_name.capitalize + " "+ @user.last_name.capitalize %></td>
-      <td scope="row" align='center' rowspan='3'><%= image_tag @user.avatar, width:'100px' %></td>
+      <td scope="row" align='center' rowspan='4'><%= image_tag @user.avatar, width:'100px' %></td>
     </tr>
     <tr>
       <th scope="row">Gender</th>
       <td scope="row"><%= @user.gender.capitalize %></td>
+    </tr>
+    <tr>
+      <th scope="row">E-Mail</th>
+      <td scope="row"><%= @user.email %></td>
     </tr>
     <tr>
       <th scope="row">Age</th>
@@ -28,7 +32,7 @@
     <tr>
       <th scope="row">Registered On</th>
       <td scope="row"><%= @user.created_at.to_date %></td>
-      <td align='center'><%= button_to 'Download Gate Pass', user_path(@user), class:'btn btn-info' %></td>
+      <td align='center'><%= link_to 'Download Gate Pass', user_path("#{@user.id}.pdf"), class:'btn btn-info' %></td>
     </tr>
   </tbody>
 </table>
