@@ -1,0 +1,5 @@
+versions:
+  - rubocop-rails
+  - rubocop-performance: "1.50.2"
+  - rubocop-minitest: "latest"
+  - rubocop-rspec: "1.37.0"

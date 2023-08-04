@@ -1,0 +1,26 @@
+name: Rubocop
+
+on:
+  pull_request:
+  # push:
+  #   branches:
+  #     - 'main'
+
+jobs:
+  build:
+    name: CI Rubocop
+    runs-on: ubuntu-latest
+    env:
+      api-dir: ./
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.2
+          bundler-cache: true
+      - name: Check Rubocop Styles
+        working-directory: ${{env.api-dir}}
+        env:
+          RAILS_ENV: test
+        run: bundle exec rubocop

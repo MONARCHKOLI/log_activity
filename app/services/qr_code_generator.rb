@@ -5,7 +5,13 @@ require 'rqrcode'
 class QrCodeGenerator
   def self.generate(user)
     qr_code = RQRCode::QRCode.new(user_info_to_string(user))
-    qr_code.as_svg
+    qr_code_size = 200 # Specify the size in pixels
+    qr_code.as_svg(
+      offset: 0,
+      color: '000',
+      shape_rendering: 'crispEdges',
+      module_size: qr_code_size / qr_code.modules.length
+    )
   end
 
   private
