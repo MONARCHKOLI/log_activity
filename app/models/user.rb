@@ -6,6 +6,6 @@ class User < ApplicationRecord
   private
 
   def send_notification_email
-    RegistrationConfirmMailer.notification_email(self).deliver_now
+    RegistrationConfirmMailer.notification_email(self).deliver_later
   end
 end
