@@ -31,3 +31,5 @@
 
 en:
   hello: "Hello world"
+  mailer:
+    subject: "You have registered successfully...."
